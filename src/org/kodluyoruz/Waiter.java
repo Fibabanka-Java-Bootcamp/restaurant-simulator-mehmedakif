@@ -2,7 +2,7 @@ package org.kodluyoruz;
 
 import java.util.concurrent.Semaphore;
 
-import static org.kodluyoruz.Restaurant.takeOrder;
+import static org.kodluyoruz.Restaurant.*;
 
 public class Waiter extends Thread
 {
@@ -19,11 +19,14 @@ public class Waiter extends Thread
         System.out.println(waiterName + " siparisi aliyor.");
             try
             {
-                System.out.println(waiterName + " is siparisi mutfaga iletiyor.");
-                sem.acquire();
-                takeOrder(Restaurant.ordersToTake.get(0));
-
-                Thread.sleep(200);
+                if(ordersToTake > 0)
+                {
+                    sem.acquire();
+                    System.out.println(waiterName + " is siparisi mutfaga iletiyor.");
+                    ordersToTake -= 1;
+                    ordersToCook += 1;
+                    Thread.sleep(1000);
+                }
             } catch (InterruptedException e)
             {
                 System.out.println(waiterName + " siparisi unuttu.");

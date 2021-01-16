@@ -8,34 +8,11 @@ import java.util.concurrent.Semaphore;
 public class Restaurant
 {
     static Semaphore sem;
-    static List<String> ordersToTake;
-    static List<String> ordersToCook;
-    static List<String> ordersToServe;
+    static int ordersToTake = 0;
+    static int ordersToCook = 0;
+    static int ordersToServe = 0;
 
-    List<Customer> currentCustomers;
+    static ExecutorService waiterPool = Executors.newFixedThreadPool(3);
+    static ExecutorService cookPool = Executors.newFixedThreadPool(2);
 
-    ExecutorService customerPool = Executors.newFixedThreadPool(5);
-    ExecutorService waiterPool = Executors.newFixedThreadPool(3);
-    ExecutorService cookPool = Executors.newFixedThreadPool(2);
-
-
-    public static void newOrder(String customerName)
-    {
-        ordersToTake.add(customerName);
-    }
-    public static void takeOrder(String customerName)
-    {
-        ordersToCook.add(customerName);
-        ordersToTake.remove(customerName);
-    }
-    public static void cookOrder(String customerName)
-    {
-        ordersToServe.add(customerName);
-        ordersToCook.remove(customerName);
-    }
-
-    Restaurant()
-    {
-
-    }
 }

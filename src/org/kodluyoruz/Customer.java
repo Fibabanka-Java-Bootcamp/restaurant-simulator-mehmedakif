@@ -24,7 +24,7 @@ public class Customer extends Thread
             {
                 System.out.println(customerName + " siparis veriyor.");
                 sem.acquire();
-                ordersToTake.add(customerName);
+                ordersToTake+=1;
                 Thread.sleep(1000);//Musteri masada 1000 saniye oturuyor.
 
             } catch (InterruptedException e)

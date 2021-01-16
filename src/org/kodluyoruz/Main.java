@@ -12,11 +12,11 @@ public class Main {
     {
 
         Restaurant newRestaurant = new Restaurant();
-
+        ExecutorService customerPool = Executors.newFixedThreadPool(5);
         for(int i=0; i<5;i++)
         {
-            Customer newCustomerFromStreet = new Customer(newRestaurant.sem,String.valueOf(i));
-            newRestaurant.customerPool.execute(newCustomerFromStreet);
+            Customer newCustomerFromStreet = new Customer(Restaurant.sem,String.valueOf(i));
+            customerPool.execute(newCustomerFromStreet);
         }
 
         Waiter waiter1 = new Waiter(newRestaurant.sem,"waiter1");
@@ -33,7 +33,7 @@ public class Main {
         newRestaurant.cookPool.execute(cook1);
         newRestaurant.cookPool.execute(cook2);
 
-        ExecutorService customerPool = Executors.newFixedThreadPool(5);
+
 
 
     }
